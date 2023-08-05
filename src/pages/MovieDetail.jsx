@@ -5,6 +5,8 @@ import { apiPath,api_key,imagePalaceHolder } from "../assets/EnvironmentalDetail
 import { MovieGenereCard } from "../components/MovieGenereCard";
 import { CastCard } from "../components/castCard";
 import { CrewCard } from "../components/crewCard";
+import { useFetchDetails } from "../hooks/useFetchDetails";
+import { RelatedMovieCard } from "../components/relatedMovieCard";
 
 
 export const MovieDetail = () => {
@@ -13,41 +15,45 @@ export const MovieDetail = () => {
                             {id:"3", original_title:"asjdhashd", overview:"sdkahdksjhdjscbnkujaidbaskjdbausdbsakd", poster_path:""},
                             {id:"4", original_title:"asjdhashd", overview:"sdkahdksjhdjscbnkujaidbaskjdbausdbsakd", poster_path:""},
                             {id:"5", original_title:"asjdhashd", overview:"sdkahdksjhdjscbnkujaidbaskjdbausdbsakd", poster_path:""}]
+  
   const relatedMovieTitle =["Related"]
   const params = useParams();
-  const [movie, setMovie] = useState({});
-  const [personal, setPersonal] = useState({});
-  const [url,seturl] = useState("");
-  const [castUrl,setCastUrl] = useState("");
+  const movieDetailsUrl = "movie/"+params.id
+  const castUrl = "movie/"+params.id+"/credits"
+  const [relatedMovieGenre,setrelatedMovieGenre] = useState([])
+  const [r_id,setR_id] = useState("") ;
+  //const [movie,setMovie] = useState({}) ;
+  var rid;
+  var relatedMovie
+  
+  const { data: movie } = useFetchDetails(movieDetailsUrl);
+  const { data: personal } = useFetchDetails(castUrl);
+
+  function a (){
+    useEffect(() => {
+      console.log(movie.title)
+      const u = 'https://api.themoviedb.org/3/movie/popular?language=en-US&page=1&genre_ids='+12+'&api_key=b80d59c33d6d57ed9c7e3713f91c188a'
+      console.log(u)
+      async function fetchRelated(){
+        const response = await fetch(u);
+        const json = await response.json();
+        console.log(json.results)
+        setrelatedMovieGenre(json.results);
+      }
+     fetchRelated();
+    }, [params.id])
+  
+  }
+ 
+  // if(movie.title){
+  // //a()
+  // }
   
 
-  //eslint-disable-next-line
+
   const pageTitle = useTitle(movie.title);
 
   const image = movie.poster_path ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}` : imagePalaceHolder ;
-
-  useEffect(() => {
-    seturl(apiPath+"movie/"+params.id+"?api_key="+api_key)
-    console.log("url= "+url);
-    async function fetchMovieDetails(){
-      const response = await fetch(url);
-      const json = await response.json()
-      setMovie(json);
-    }
-    fetchMovieDetails();
-  }, [url]);
-
-  useEffect(() => {
-    setCastUrl(apiPath+"movie/"+params.id+"/credits"+"?api_key="+api_key)
-    console.log("casturl= "+castUrl);
-    async function fetchCastDetails(){
-      const response = await fetch(castUrl);
-      const json = await response.json()
-      setPersonal(json);
-      console.log(json.cast);
-    }
-    fetchCastDetails();
-  }, [castUrl]);
   
   return (
     <main>
@@ -60,6 +66,7 @@ export const MovieDetail = () => {
           <p className="my-4">{movie.overview}</p>
             { movie.genres ? (
               <p className="my-7 flex flex-wrap gap-2">
+              <p className="hidden">{rid = movie.genres[0].id}</p>
               { movie.genres.map((genre) => (
                 <span className="mr-2 border border-gray-200 rounded dark:border-gray-600 p-2" key={genre.id}>{genre.name}</span>
               )) }
@@ -111,11 +118,22 @@ export const MovieDetail = () => {
        </div>
 
       {/* Related Movies */}
+      { movie.genres ? (
       <div className="mt-20">
-      { relatedMovieTitle.map((relatedMovieTitle) => (                
-          <MovieGenereCard  bigCardMovieList={bigCardMovieList} movieGenere={relatedMovieTitle} />
-      )) } 
+        <RelatedMovieCard keyID={movie.genres[0].id}/>  
+        
+      {/* <div className="flex flex-col justify-start items-start mx-auto px-3">              
+          <span className="self-start text-2xl font-semibold whitespace-nowrap dark:text-white">Related Movies</span> 
+          { relatedMovieGenre ? (
+          <div className="flex justify-start flex-wrap other:justify-evenly">
+              { relatedMovieGenre.map((relatedMovies) => (
+                  <MovieCardBig key={relatedMovies.id} movie={relatedMovies} />
+               )) }        
+          </div>
+            ) : "" } 
+      </div> */}
       </div>
+      ) : "" }
     </main>
   )
 }

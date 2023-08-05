@@ -6,7 +6,7 @@ export const MovieListCard = ({movie}) => {
     //const image = poster_path ? `https://image.tmdb.org/t/p/w500/${poster_path}` : Backup ;
   
     return (
-      <div className="flex flex-wrap m-1 w-full justify-between bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+      <div className="flex flex-wrap w-full justify-between bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
           <div className="flex flex-col p-3">
               {/* <Link to={`/movie/${id}`}> */}
                   <h5 className="text-sm font-bold tracking-tight text-gray-900 dark:text-white">Title: {original_title}</h5>

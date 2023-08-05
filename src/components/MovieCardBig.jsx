@@ -1,20 +1,22 @@
-// import { Link } from "react-router-dom";
-// import Backup from "../assets/images/backup.png"
+ import { Link } from "react-router-dom";
+ import backup from "../assets/backup.jpg"
+import { imagePalaceHolder } from "../assets/EnvironmentalDetails";
 
 export const MovieCardBig = ({movie}) => {
-  const {id, original_title, overview, poster_path} = movie;
-  //const image = poster_path ? `https://image.tmdb.org/t/p/w500/${poster_path}` : Backup ;
+  //console.log(movie.title)
+  
+  const image = movie.poster_path ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}` : backup ;
 
   return (
-    <div className="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 m-3">
-        {/* <Link to={`/movie/${id}`}> */}
-            <img className="rounded-t-lg" src="" alt="" placeholder="Image"/>
-        {/* </Link> */}
-        <div className="p-5">
-            {/* <Link to={`/movie/${id}`}> */}
-                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{original_title}</h5>
-            {/* </Link> */}
-            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{overview}</p>
+    <div className="flex flex-wrap self-start w-80 bg-white rounded-lg border md:text-sm border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 m-3">
+         <Link to={`/movies/${movie.id}`}> 
+          <img src={image} className="pb-2 w-full h-full" placeholder="Image"/>
+         </Link> 
+        <div className="px-2">
+             <Link to={`/movies/${movie.id}`}> 
+                <h5 className="py-2 text-2xl w-full font-bold tracking-tight text-gray-900 dark:text-white">{movie.title}</h5>
+             </Link> 
+            <p className="py-1 font-normal w-full text-gray-700 dark:text-gray-400">{movie.vote_average}</p>
         </div>
     </div>
   )
