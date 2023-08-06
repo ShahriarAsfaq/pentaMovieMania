@@ -3,6 +3,7 @@ import { MovieList } from "../pages/movielist";
 import { MovieDetail } from "../pages/MovieDetail";
 import { Login } from "../pages/login";
 import { Register } from "../pages/register";
+import { WatchList } from "../pages/WatchList";
 
 
 export const AallRoutes = () => {
@@ -12,7 +13,7 @@ export const AallRoutes = () => {
         <Routes>
             <Route path="" element={<MovieList />} />
             <Route path="movies/:id" element={<MovieDetail />} />
-            {/* <Route path="watchList" element={<WatchList />} /> */}
+            <Route path="watchlist" element={<WatchList />} /> 
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
             {/* <Route path="*" element={<PageNotFound />} /> */}

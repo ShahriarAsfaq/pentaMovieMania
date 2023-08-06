@@ -7,15 +7,11 @@ import { CastCard } from "../components/castCard";
 import { CrewCard } from "../components/crewCard";
 import { useFetchDetails } from "../hooks/useFetchDetails";
 import { RelatedMovieCard } from "../components/relatedMovieCard";
+import { useLocation } from "react-router-dom";
 
 
 export const MovieDetail = () => {
-  const bigCardMovieList = [{id:"1", original_title:"asjdhashd", overview:"sdkahdksjhdjscbnkujaidbaskjdbausdbsakd", poster_path:""},
-                            {id:"2", original_title:"asjdhashd", overview:"sdkahdksjhdjscbnkujaidbaskjdbausdbsakd", poster_path:""},
-                            {id:"3", original_title:"asjdhashd", overview:"sdkahdksjhdjscbnkujaidbaskjdbausdbsakd", poster_path:""},
-                            {id:"4", original_title:"asjdhashd", overview:"sdkahdksjhdjscbnkujaidbaskjdbausdbsakd", poster_path:""},
-                            {id:"5", original_title:"asjdhashd", overview:"sdkahdksjhdjscbnkujaidbaskjdbausdbsakd", poster_path:""}]
-  
+  const location = useLocation();
   const relatedMovieTitle =["Related"]
   const params = useParams();
   const movieDetailsUrl = "movie/"+params.id
@@ -30,7 +26,9 @@ export const MovieDetail = () => {
   const { data: personal } = useFetchDetails(castUrl);
 
   
-
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [location]);
 
   const pageTitle = useTitle(movie.title);
 
@@ -102,17 +100,6 @@ export const MovieDetail = () => {
       { movie.genres ? (
       <div className="mt-20">
         <RelatedMovieCard keyID={movie.genres[0].id}/>  
-        
-      {/* <div className="flex flex-col justify-start items-start mx-auto px-3">              
-          <span className="self-start text-2xl font-semibold whitespace-nowrap dark:text-white">Related Movies</span> 
-          { relatedMovieGenre ? (
-          <div className="flex justify-start flex-wrap other:justify-evenly">
-              { relatedMovieGenre.map((relatedMovies) => (
-                  <MovieCardBig key={relatedMovies.id} movie={relatedMovies} />
-               )) }        
-          </div>
-            ) : "" } 
-      </div> */}
       </div>
       ) : "" }
     </main>

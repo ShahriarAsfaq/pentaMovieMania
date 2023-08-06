@@ -6,9 +6,11 @@ import './App.css';
 function App() {
   
   return (
-    <div className="App">
+    <div className="relative">
       <Header />
+      <div className="overflow-y-auto py-14">
         <AallRoutes />
+        </div>
       <Footer />
     </div>
   );
