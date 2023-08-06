@@ -1,18 +1,18 @@
-// import { Link } from "react-router-dom";
+ import { Link } from "react-router-dom";
 // import Backup from "../assets/images/backup.png"
 
 export const MovieListCard = ({movie}) => {
-    const {id, original_title, overview, poster_path} = movie;
+    
     //const image = poster_path ? `https://image.tmdb.org/t/p/w500/${poster_path}` : Backup ;
   
     return (
       <div className="flex flex-wrap w-full justify-between bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
           <div className="flex flex-col p-3">
-              {/* <Link to={`/movie/${id}`}> */}
-                  <h5 className="text-sm font-bold tracking-tight text-gray-900 dark:text-white">Title: {original_title}</h5>
-              {/* </Link> */}
-              <p className="font-normal text-gray-700 dark:text-gray-400">id{id}</p>
-              <p className="font-normal text-gray-700 dark:text-gray-400">genere:</p>
+               <Link to={`/movies/${movie.id}`}> 
+                  <h5 className="text-sm font-bold tracking-tight text-gray-900 dark:text-white">Title: {movie.title}</h5>
+               </Link> 
+              <p className="font-normal text-gray-700 dark:text-gray-400">Popularity: {movie.vote_average}</p>
+              <p className="font-normal text-gray-700 dark:text-gray-400">{movie.release_date}</p>
           </div>
             <button className="px-7">
             <svg className="w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 14 20">

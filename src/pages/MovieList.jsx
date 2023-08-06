@@ -1,4 +1,5 @@
  import { useFetch } from "../hooks/useFetch";
+ import { useFetchByDate } from "../hooks/useFetchbyDate";
  import { useTitle } from "../hooks/useTitle";
  import { useState,useEffect } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
@@ -9,17 +10,22 @@ import { apiPath,api_key,imagePalaceHolder } from "../assets/EnvironmentalDetail
 
 
 export const MovieList = () => {
-  const { genre : genreObj } = useFetch("","genre");
-  
-  // useEffect(() => {
-  //   setGnere(genreObj.genres);
-  // }, [])
-  // const a = () =>{
-  //   console.log("genere = "+genreObj);
-  // }
-  // a();
+  const today = new Date();
+  const previousMonth = new Date(today);
+  previousMonth.setMonth(today.getMonth() - 1);
 
-  //const { data: movies } = useFetch(apiPath);
+  const formatDate = (date) => {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const firstDay = "01";
+    const lastDay = new Date(year, date.getMonth() + 1, 0).getDate().toString().padStart(2, "0");
+    return "primary_release_date.gte="+year+"-"+month+"-"+firstDay+"&primary_release_date.lte="+year+"-"+month+"-"+lastDay
+  };
+
+  const { genre : genreObj } = useFetch("","genre");
+  const [showCurrentMonth, setShowCurrentMonth] = useState(true); 
+  const { movielist: movielist } = useFetchByDate(showCurrentMonth ? formatDate(today) : formatDate(previousMonth));
+  
   useTitle("Penta_Movies");
   const activeClass = "text-base block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white";
   const inActiveClass = "text-base block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-purple dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700";
@@ -28,10 +34,10 @@ export const MovieList = () => {
 
   }
   const getOldMovie =() => {
-    console.log(isActive);
+    setShowCurrentMonth(false);
   }
   const getRecentmovie = ()=>{
-      console.log("REcent ones");
+    setShowCurrentMonth(true);
   }
   const bigCardMovieList = [{id:"1", original_title:"asjdhashd", overview:"sdkahdksjhdjscbnkujaidbaskjdbausdbsakd", poster_path:""},
                             {id:"2", original_title:"asjdhashd", overview:"sdkahdksjhdjscbnkujaidbaskjdbausdbsakd", poster_path:""},
@@ -39,84 +45,7 @@ export const MovieList = () => {
                             {id:"4", original_title:"asjdhashd", overview:"sdkahdksjhdjscbnkujaidbaskjdbausdbsakd", poster_path:""},
                             {id:"5", original_title:"asjdhashd", overview:"sdkahdksjhdjscbnkujaidbaskjdbausdbsakd", poster_path:""}]
 
-  const movieGenere = [
-    {
-    "id": 28,
-    "name": "Action"
-    },
-    {
-    "id": 12,
-    "name": "Adventure"
-    },
-    {
-    "id": 16,
-    "name": "Animation"
-    },
-    {
-    "id": 35,
-    "name": "Comedy"
-    },
-    {
-    "id": 80,
-    "name": "Crime"
-    },
-    {
-    "id": 99,
-    "name": "Documentary"
-    },
-    {
-    "id": 18,
-    "name": "Drama"
-    },
-    {
-    "id": 10751,
-    "name": "Family"
-    },
-    {
-    "id": 14,
-    "name": "Fantasy"
-    },
-    {
-    "id": 36,
-    "name": "History"
-    },
-    {
-    "id": 27,
-    "name": "Horror"
-    },
-    {
-    "id": 10402,
-    "name": "Music"
-    },
-    {
-    "id": 9648,
-    "name": "Mystery"
-    },
-    {
-    "id": 10749,
-    "name": "Romance"
-    },
-    {
-    "id": 878,
-    "name": "Science Fiction"
-    },
-    {
-    "id": 10770,
-    "name": "TV Movie"
-    },
-    {
-    "id": 53,
-    "name": "Thriller"
-    },
-    {
-    "id": 10752,
-    "name": "War"
-    },
-    {
-    "id": 37,
-    "name": "Western"
-    }
-    ]
+
     
   return (
     <main>
@@ -175,7 +104,7 @@ export const MovieList = () => {
           <div className="justify-start items-start w-full md:flex md:w-auto md:order-1">
                 <ul className="flex flex-row p-4 px-7 mt-4 justify-center items-center text-white bg-gray-50 rounded-lg border border-gray-100 md:bg-white dark:bg-gray-600 md:dark:bg-gray-600 dark:border-gray-600">
                   <li onClick={getRecentmovie} className="hover:text-blue-700 hover:cursor-pointer pr-7">
-                  This Month
+                  <a href="/">This Month</a>
                   </li>
                   <li onClick={getOldMovie} className="hover:text-blue-700 hover:cursor-pointer"> 
                   Last Month
@@ -185,11 +114,13 @@ export const MovieList = () => {
       </div>
       {/* movielist */}
       
-      <div className="flex flex-col justify-start items-start px-7 py-3 border-2 scroll-my-2 md:space-x-8 md:text-sm md:font-medium md:border-1 bg-gray-600 dark:bg-gray-600 border-white-900">
-                { bigCardMovieList.map((bigCardMovieList) => (
+      { movielist ? (
+      <div className="flex flex-col justify-start px-3 py-3 border-2 scroll-my-2 md:space-x-8 md:text-sm md:font-medium md:border-1 bg-gray-600 dark:bg-gray-600 border-white-900">
+                { movielist.map((bigCardMovieList) => (
                   <MovieListCard key={bigCardMovieList.id} movie={bigCardMovieList} />
                 ) ) } 
       </div>
+      ) : "" }
       
       </section>
     </main>

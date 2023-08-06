@@ -29,25 +29,6 @@ export const MovieDetail = () => {
   const { data: movie } = useFetchDetails(movieDetailsUrl);
   const { data: personal } = useFetchDetails(castUrl);
 
-  function a (){
-    useEffect(() => {
-      console.log(movie.title)
-      const u = 'https://api.themoviedb.org/3/movie/popular?language=en-US&page=1&genre_ids='+12+'&api_key=b80d59c33d6d57ed9c7e3713f91c188a'
-      console.log(u)
-      async function fetchRelated(){
-        const response = await fetch(u);
-        const json = await response.json();
-        console.log(json.results)
-        setrelatedMovieGenre(json.results);
-      }
-     fetchRelated();
-    }, [params.id])
-  
-  }
- 
-  // if(movie.title){
-  // //a()
-  // }
   
 
 
