@@ -1,4 +1,4 @@
-import { AallRoutes } from "./routes/allroutes";
+import { AallRoutes } from "./routes/AallRoutes";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import './App.css';
