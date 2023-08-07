@@ -25,7 +25,7 @@ export const MovieListCard = ({ movie }) => {
 
   return (
     <div className="flex flex-wrap items-center w-full justify-between bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 p-3">
-      <Link to={`/movies/${movie.id}`} className="flex-shrink-0">
+      <Link to={`/pentaMovieMania/movies/${movie.id}`} className="flex-shrink-0">
         <img
           src={image}
           alt={movie.title}
@@ -34,7 +34,7 @@ export const MovieListCard = ({ movie }) => {
       </Link>
       <div className="flex flex-col flex-grow px-2">
         <Link
-          to={`/movies/${movie.id}`}
+          to={`/pentaMovieMania/movies/${movie.id}`}
           className="text-sm font-bold text-gray-900 dark:text-white hover:underline"
         >
           Title: {movie.title}

@@ -20,16 +20,16 @@ export const Header = () => {
           <div className="flex flex-wrap justify-between items-center mx-9">
             <Link to="/" className="flex items-center">
                 <span className="self-center text-3xl tex font-bold whitespace-nowrap dark:text-white">
-                    <NavLink to="/" className={({isActive}) => isActive ? activeClass : inActiveClass } end>Penta Movie Mania</NavLink>
+                    <NavLink to="/pentaMovieMania" className={({isActive}) => isActive ? activeClass : inActiveClass } end>Penta Movie Mania</NavLink>
                 </span>
             </Link>
               <div className="justify-between items-center w-full md:flex md:w-auto md:order-1">
                 <ul className="flex flex-col p-4 mt-4 bg-gray-50 rounded-lg border border-gray-100 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                   <li>
-                    <NavLink to="/watchlist" className={({isActive}) => isActive ? activeClass : inActiveClass }>watchList</NavLink>
+                    <NavLink to="/pentaMovieMania/watchlist" className={({isActive}) => isActive ? activeClass : inActiveClass }>watchList</NavLink>
                   </li>
                   <li>
-                    <NavLink to="/login" className={({isActive}) => isActive ? activeClass : inActiveClass }>Login</NavLink>
+                    <NavLink to="/pentaMovieMania/login" className={({isActive}) => isActive ? activeClass : inActiveClass }>Login</NavLink>
                   </li>
                 </ul>
               </div>
