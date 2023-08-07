@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import backup from "../assets/backup.jpg";
 import { imagePalaceHolder } from "../assets/EnvironmentalDetails";
 import { useDispatch,useSelector } from "react-redux";
-import { add, remove } from "../stores/watchlistSlice";
+import { add, remove } from "../stores/slices/watchlistSlice";
 import { checkWatchListState } from "../utility/checkWatchlistState";
 
 export const MovieCardBig = ({ movie }) => {

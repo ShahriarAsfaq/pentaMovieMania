@@ -1,10 +1,45 @@
 import React from "react";
+import { useState,useEffect } from "react";
+import { useDispatch,useSelector } from "react-redux";
+import { Link, NavLink, useNavigate} from "react-router-dom";
+import { add,remove } from "../stores/slices/useLogedInSlice";
 
 export const Register = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [name, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleSubmit = () => {
-    
-  } 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("http://192.168.1.104:3000/api/auth/createuser", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, email, password }),
+      });
+
+      if (response.ok) {
+        // Registration successful, handle response or redirect
+        const data = await response.json()
+        console.log(data.authtoken)
+        dispatch(add(data.authtoken))
+        navigate("/pentamoviemania");
+        alert("Registration successful");
+
+      } else {
+        // Registration failed, handle error
+        alert("Registration failed");
+      }
+    } catch (error) {
+      // Handle error
+      console.error("Error:", error);
+    }
+  };
 
   return (
     <main>
@@ -24,8 +59,10 @@ export const Register = () => {
                   </label>
                   <input
                     type="text"
-                    name="userName"
-                    id="userName"
+                    name="name"
+                    id="name"
+                    value={name}
+                    onChange={(e) => setUserName(e.target.value)}
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="name"
                     required=""
@@ -42,6 +79,8 @@ export const Register = () => {
                     type="email"
                     name="email"
                     id="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="name@company.com"
                     required=""
@@ -58,6 +97,8 @@ export const Register = () => {
                     type="password"
                     name="password"
                     id="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     required=""

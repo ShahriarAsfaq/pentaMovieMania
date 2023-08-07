@@ -13,18 +13,51 @@ import {
 import { isValidDate } from "../utility/checkDateValidation"
 import { useDispatch,useSelector } from "react-redux";
 //import { remove } from "../stores/guestSlice";
+import { addid,removeid } from "../stores/slices/userIDSlice";
 
 
 export const MovieList = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [userData, setUserData] = useState(null);
   //const guest = useSelector(state => state.guestState);
+  const loginStat = useSelector(state => state.loginStatusState.loginStatus);
+  
 
-  // useEffect(() => {
-  //   if(guest!=true){
-  //   navigate("/pentamoviemania/login");
-  //   }
-  // }, []);
+  useEffect(() => {
+    if(loginStat!=""){
+    
+      fetchUserData(loginStat)
+    }
+    else{
+      navigate("/pentamoviemania/login");
+    }
+  }, [loginStat]);
+
+  const fetchUserData = async (loginStat) => {
+    try {
+      const authToken = loginStat; // Replace with your actual auth token
+      console.log("useE "+authToken)
+      const response = await fetch("http://192.168.1.104:3000/api/auth/getuser", {
+        method: "POST",
+        headers: {
+          "auth-token": authToken,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("data = ",data._id)
+        dispatch(addid(data._id))
+        setUserData(data);
+      } else {
+        //alert("Error fetching user data");
+        console.error("Error fetching user data");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
   const today = new Date();
   const previousMonth = new Date(today);
@@ -113,7 +146,7 @@ export const MovieList = () => {
   return (
     <main>
       <section className="max-w-full mx-auto py-7">
-      <h2 className="text-4xl font-bold ml-9 dark:text-white">Populer Movies</h2>
+      <h2 className="text-4xl font-bold ml-9 dark:text-white">Popular Movies</h2>
         <div className="px-5 m-3">
           {genreObj.map((movieGenere) => (
             <MovieGenereCard

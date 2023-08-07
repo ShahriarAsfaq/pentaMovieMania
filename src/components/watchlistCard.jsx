@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
 import backup from "../assets/backup.jpg";
 import { imagePalaceHolder } from "../assets/EnvironmentalDetails";
-import { useDispatch } from "react-redux";
-import { add,remove } from "../stores/watchlistSlice";
+import { useDispatch,useSelector } from "react-redux";
+import { add,remove } from "../stores/slices/watchlistSlice";
 
 export const WatchlistCard = ({ movie }) => {
   const dispatch = useDispatch();
+  
   //console.log(movie.title)
 
   const image = movie.poster_path

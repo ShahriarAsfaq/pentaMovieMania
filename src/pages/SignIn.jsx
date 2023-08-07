@@ -1,10 +1,46 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { useDispatch,useSelector } from "react-redux";
+import { useState } from "react";
+import { Link, NavLink, useNavigate} from "react-router-dom";
 //import { add, remove } from "../stores/guestSlice";
+import { add,remove } from "../stores/slices/useLogedInSlice";
 
 export const Login = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("http://192.168.1.104:3000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (response.ok) {
+        // Registration successful, handle response or redirect
+        const data = await response.json()
+        console.log(data.authtoken)
+        dispatch(add(data.authtoken))
+        navigate("/pentamoviemania");
+        alert("Login successful");
+      } else {
+        // Registration failed, handle error
+        alert("Registration failed");
+        console.error("Login failed");
+      }
+    } catch (error) {
+      // Handle error
+      console.error("Error:", error);
+    }
+  };
+
   return (
     <main>
       <section className="bg-gray-50 dark:bg-gray-900 mt-32 md:mt-1">
@@ -14,10 +50,10 @@ export const Login = () => {
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                 Sign in to your account
               </h1>
-              <form className="space-y-4 md:space-y-6 mt-8 sm:mt-16" action="#">
+              <form className="space-y-4 md:space-y-6 mt-8 sm:mt-16" onSubmit={handleSubmit}>
                 <div>
                   <label
-                    for="email"
+                    htmlFor="email"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
                     Email
@@ -26,17 +62,19 @@ export const Login = () => {
                     type="email"
                     name="email"
                     id="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="name@company.com"
                     required=""
                   />
-                  <p class="mt-2 invisible peer-invalid:visible text-pink-600 text-sm">
+                  <p className="mt-2 invisible peer-invalid:visible text-pink-600 text-sm">
                     Please provide a valid email address.
                   </p>
                 </div>
                 <div>
                   <label
-                    for="password"
+                    htmlFor="password"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
                     Password
@@ -45,6 +83,8 @@ export const Login = () => {
                     type="password"
                     name="password"
                     id="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     required=""

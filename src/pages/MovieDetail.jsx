@@ -13,7 +13,7 @@ import { useFetchDetails } from "../hooks/useFetchDetails";
 import { RelatedMovieCard } from "../components/relatedMovieCard";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { add, remove } from "../stores/watchlistSlice";
+import { add, remove } from "../stores/slices/watchlistSlice";
 import { checkWatchListState } from "../utility/checkWatchlistState";
 
 export const MovieDetail = () => {
@@ -123,13 +123,14 @@ export const MovieDetail = () => {
           </p>
 
           <p className="my-4">
-            <span className="mr-2 font-bold">IMDB Code:</span>
+            {/* <span className="mr-2 font-bold">IMDB link :</span> */}
             <a
               href={`https://www.imdb.com/title/${movie.imdb_id}`}
               target="_blank"
               rel="noreferrer"
+              className="bg-yellow-500 px-3"
             >
-              {movie.imdb_id}
+              <span className=" font-bold text-black">IMDb link</span>
             </a>
           </p>
         </div>

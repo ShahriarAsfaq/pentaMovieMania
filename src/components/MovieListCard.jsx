@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 // import Backup from "../assets/images/backup.png"
 import { useDispatch, useSelector } from "react-redux";
-import { add, remove } from "../stores/watchlistSlice";
+import { add, remove } from "../stores/slices/watchlistSlice";
 import { useState, useEffect } from "react";
 import { imagePalaceHolder } from "../assets/EnvironmentalDetails";
 
