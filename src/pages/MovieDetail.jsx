@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useTitle } from "../hooks/useTitle";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import {
   apiPath,
   api_key,
@@ -15,10 +16,13 @@ import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { add, remove } from "../stores/slices/watchlistSlice";
 import { checkWatchListState } from "../utility/checkWatchlistState";
+import { fetchUserData } from "../utility/checkUserStatusWithID";
 
 export const MovieDetail = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const watchList = useSelector((state) => state.watchListState.watchList);
+  const loginStat = useSelector(state => state.loginStatusState.loginStatus);
   const location = useLocation();
   const relatedMovieTitle = ["Related"];
   const params = useParams();
@@ -42,6 +46,19 @@ export const MovieDetail = () => {
   const image = movie.poster_path
     ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
     : imagePalaceHolder;
+
+    const a = (loginStat) =>{
+      if(loginStat!=""){
+        fetchUserData(loginStat)
+      }
+      else{
+        navigate("/pentamoviemania/login");
+      }
+    }
+    const handleBookMark = () =>{
+      dispatch(add(movie));
+      a(loginStat)
+    }
 
   return (
     <main>
@@ -67,7 +84,7 @@ export const MovieDetail = () => {
                 </svg>
               </button>
             ) : (
-              <button onClick={() => dispatch(add(movie))} className="pr-5">
+              <button onClick={handleBookMark} className="pr-5">
                 <svg
                   className="w-5 h-5 text-gray-800 dark:text-white"
                   aria-hidden="true"

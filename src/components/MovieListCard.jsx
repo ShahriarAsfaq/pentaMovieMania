@@ -1,14 +1,30 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 // import Backup from "../assets/images/backup.png"
 import { useDispatch, useSelector } from "react-redux";
 import { add, remove } from "../stores/slices/watchlistSlice";
 import { useState, useEffect } from "react";
 import { imagePalaceHolder } from "../assets/EnvironmentalDetails";
+import { fetchUserData } from "../utility/checkUserStatusWithID";
 
 export const MovieListCard = ({ movie }) => {
   const dispatch = useDispatch();
   const watchList = useSelector((state) => state.watchListState.watchList);
+  const loginStat = useSelector(state => state.loginStatusState.loginStatus);
+  const navigate = useNavigate();
   const [isInWatchList, setIsInWatchList] = useState(false);
+
+  const a = (loginStat) =>{
+    if(loginStat!=""){
+      fetchUserData(loginStat)
+    }
+    else{
+      navigate("/pentamoviemania/login");
+    }
+  }
+  const handleBookMark = () =>{
+    dispatch(add(movie));
+    a(loginStat)
+  }
 
   useEffect(() => {
     const movieInCart = watchList.find((item) => item.id === movie.id);
@@ -57,7 +73,7 @@ export const MovieListCard = ({ movie }) => {
         <path d="M13 20a1 1 0 0 1-.64-.231L7 15.3l-5.36 4.469A1 1 0 0 1 0 19V2a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v17a1 1 0 0 1-1 1Z" />
       </svg>
     </button>) :
-      (<button onClick={() => dispatch(add(movie))} className="px-2">
+      (<button onClick={handleBookMark} className="px-2">
         <svg
           className="w-5 h-5 text-gray-800 dark:text-white"
           aria-hidden="true"

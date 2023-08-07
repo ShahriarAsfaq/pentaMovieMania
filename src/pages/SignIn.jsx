@@ -37,6 +37,7 @@ export const Login = () => {
       }
     } catch (error) {
       // Handle error
+      alert("try again later");
       console.error("Error:", error);
     }
   };
@@ -108,8 +109,8 @@ export const Login = () => {
                 </p>
                 <div className="text-center">
                 <Link
-                    to={`/pentaMovieMania`}>
-                  <button
+                    to={`/pentamoviemania`}>
+                  <button onClick={()=>dispatch(add("guest"))}
                     type="button" 
                     className="text-blue-600 hover:underline dark:text-purple-500">
                     Continue as Guest
