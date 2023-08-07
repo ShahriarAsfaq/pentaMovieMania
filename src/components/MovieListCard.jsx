@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { add, remove } from "../stores/slices/watchlistSlice";
 import { useState, useEffect } from "react";
 import { imagePalaceHolder } from "../assets/EnvironmentalDetails";
-import { fetchUserData } from "../utility/checkUserStatusWithID";
+import { fetchUserData } from "../utility/fetchUserData";
 
 export const MovieListCard = ({ movie }) => {
   const dispatch = useDispatch();
