@@ -2,7 +2,7 @@ import { useFetch } from "../hooks/useFetch";
 import { useFetchByDate } from "../hooks/useFetchbyDate";
 import { useTitle } from "../hooks/useTitle";
 import { useState, useEffect } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate} from "react-router-dom";
 import { MovieGenereCard } from "../components/MovieGenereCard";
 import { MovieListCard } from "../components/MovieListCard";
 import {
@@ -11,8 +11,21 @@ import {
   imagePalaceHolder,
 } from "../assets/EnvironmentalDetails";
 import { isValidDate } from "../utility/checkDateValidation"
+import { useDispatch,useSelector } from "react-redux";
+//import { remove } from "../stores/guestSlice";
+
 
 export const MovieList = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  //const guest = useSelector(state => state.guestState);
+
+  // useEffect(() => {
+  //   if(guest!=true){
+  //   navigate("/pentamoviemania/login");
+  //   }
+  // }, []);
+
   const today = new Date();
   const previousMonth = new Date(today);
   previousMonth.setMonth(today.getMonth() - 1);
@@ -41,7 +54,7 @@ export const MovieList = () => {
     );
   };
 
-  const { genre: genreObj } = useFetch("", "genre");
+  const {genre: genreObj } = useFetch("", "genre");
   const [showCurrentMonth, setShowCurrentMonth] = useState(true);
   const [customMonth, setCustomMonth] = useState(formatDate(previousMonth));
   const { movielist: movielist } = useFetchByDate(
@@ -88,12 +101,6 @@ export const MovieList = () => {
     }
   };
 
-  // const isValidDate = (day, month, year) => {
-  //   const validDay = /^\d{2}$/.test(day);
-  //   const validMonth = /^\d{2}$/.test(month);
-  //   const validYear = /^\d{4}$/.test(year);
-  //   return validDay && validMonth && validYear;
-  // };
 
   const getOldMovie = () => {
     setShowCurrentMonth(false);

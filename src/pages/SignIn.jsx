@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useDispatch,useSelector } from "react-redux";
+//import { add, remove } from "../stores/guestSlice";
 
 export const Login = () => {
+  const dispatch = useDispatch();
   return (
     <main>
       <section className="bg-gray-50 dark:bg-gray-900 mt-32 md:mt-1">
@@ -63,6 +66,16 @@ export const Login = () => {
                     Sign up
                   </Link>
                 </p>
+                <div className="text-center">
+                <Link
+                    to={`/pentaMovieMania`}>
+                  <button
+                    type="button" 
+                    className="text-blue-600 hover:underline dark:text-purple-500">
+                    Continue as Guest
+                  </button>
+                  </Link>
+                </div>
               </form>
             </div>
           </div>

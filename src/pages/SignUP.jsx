@@ -1,6 +1,11 @@
 import React from "react";
 
 export const Register = () => {
+
+  const handleSubmit = () => {
+    
+  } 
+
   return (
     <main>
       <section className="bg-gray-50 dark:bg-gray-900 mt-32 md:mt-1">
@@ -10,7 +15,7 @@ export const Register = () => {
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                 Sign Up your account
               </h1>
-              <form className="space-y-4 md:space-y-6" action="#">
+              <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
                 <div>
                   <label
                     for="userName"

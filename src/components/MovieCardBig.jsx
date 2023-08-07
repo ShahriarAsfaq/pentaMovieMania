@@ -3,25 +3,12 @@ import backup from "../assets/backup.jpg";
 import { imagePalaceHolder } from "../assets/EnvironmentalDetails";
 import { useDispatch,useSelector } from "react-redux";
 import { add, remove } from "../stores/watchlistSlice";
-import { useState,useEffect } from "react";
+import { checkWatchListState } from "../utility/checkWatchlistState";
 
 export const MovieCardBig = ({ movie }) => {
   const dispatch = useDispatch();
   const watchList = useSelector(state => state.watchListState.watchList);
   
-  const [isInWatchList, setIsInWatchList] = useState(false);
-
-  useEffect(() => {
-    const movieInCart = watchList.find(item => item.id === movie.id);
-
-    if(movieInCart){
-      setIsInWatchList(true);
-    } else {
-      setIsInWatchList(false);
-    }
-
-  }, [watchList, movie.id]);
-
 
   const image = movie.poster_path
     ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
@@ -55,7 +42,7 @@ export const MovieCardBig = ({ movie }) => {
             </p>
           </div>
           <div>
-          { isInWatchList ? 
+          { checkWatchListState(watchList,movie) ? 
              (<button onClick={() => dispatch(remove(movie))} className="px-2">
              <svg
                className="w-5 h-5 text-red-800 dark:text-red-800"
