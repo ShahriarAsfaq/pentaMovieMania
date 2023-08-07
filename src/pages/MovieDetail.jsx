@@ -16,7 +16,7 @@ import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { add, remove } from "../stores/slices/watchlistSlice";
 import { checkWatchListState } from "../utility/checkWatchlistState";
-import { fetchUserData } from "../utility/checkUserStatusWithID";
+import { fetchUserData } from "../utility/fetchUserData";
 
 export const MovieDetail = () => {
   const dispatch = useDispatch();

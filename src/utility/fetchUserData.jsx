@@ -5,19 +5,6 @@ import { addid,removeid } from "../stores/slices/userIDSlice";
 import { useState,useEffect } from "react";
 
 
-export const checkUserStatusWithID = () => {
-    
-   // const loginStat = useSelector(state => state.loginStatusState.loginStatus);
-// useEffect(() => {
-    // if(loginStat!=""){
-    //   fetchUserData(loginStat)
-    // }
-    // else{
-    //   navigate("/pentamoviemania/login");
-    // }
-//   }, [loginStat]);
-}
-
  export const fetchUserData = async (loginStat) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();

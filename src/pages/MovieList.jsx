@@ -13,8 +13,8 @@ import {
 import { isValidDate } from "../utility/checkDateValidation"
 import { useDispatch,useSelector } from "react-redux";
 //import { remove } from "../stores/guestSlice";
-import { addid,removeid } from "../stores/slices/userIDSlice";
-import { checkUserStatusWithID } from "../utility/checkUserStatusWithID";
+
+
 
 
 export const MovieList = () => {

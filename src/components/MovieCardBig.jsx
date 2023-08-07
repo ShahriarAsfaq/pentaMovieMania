@@ -5,8 +5,7 @@ import { Link, NavLink, useNavigate} from "react-router-dom";
 import { useDispatch,useSelector } from "react-redux";
 import { add, remove } from "../stores/slices/watchlistSlice";
 import { checkWatchListState } from "../utility/checkWatchlistState";
-import { checkUserStatusWithID } from "../utility/checkUserStatusWithID";
-import { fetchUserData } from "../utility/checkUserStatusWithID";
+import { fetchUserData } from "../utility/fetchUserData";
 import { useEffect } from "react";
 
 export const MovieCardBig = ({ movie }) => {
