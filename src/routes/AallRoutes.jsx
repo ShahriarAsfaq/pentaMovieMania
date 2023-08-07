@@ -1,8 +1,8 @@
 import { Routes, Route } from "react-router-dom";
-import { MovieList } from "../pages/movielist";
+import { MovieList } from "../pages/MovieList";
 import { MovieDetail } from "../pages/MovieDetail";
-import { Login } from "../pages/login";
-import { Register } from "../pages/register";
+import { Login } from "../pages/Login";
+import { Register } from "../pages/Register";
 import { WatchList } from "../pages/WatchList";
 
 

@@ -10,6 +10,7 @@ import {
   api_key,
   imagePalaceHolder,
 } from "../assets/EnvironmentalDetails";
+import { isValidDate } from "../utility/checkDateValidation"
 
 export const MovieList = () => {
   const today = new Date();
@@ -87,12 +88,12 @@ export const MovieList = () => {
     }
   };
 
-  const isValidDate = (day, month, year) => {
-    const validDay = /^\d{2}$/.test(day);
-    const validMonth = /^\d{2}$/.test(month);
-    const validYear = /^\d{4}$/.test(year);
-    return validDay && validMonth && validYear;
-  };
+  // const isValidDate = (day, month, year) => {
+  //   const validDay = /^\d{2}$/.test(day);
+  //   const validMonth = /^\d{2}$/.test(month);
+  //   const validYear = /^\d{4}$/.test(year);
+  //   return validDay && validMonth && validYear;
+  // };
 
   const getOldMovie = () => {
     setShowCurrentMonth(false);
