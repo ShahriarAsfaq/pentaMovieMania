@@ -11,11 +11,11 @@ export const AallRoutes = () => {
   return (
     <div className="dark:bg-darkbg">
         <Routes>
-            <Route path="" element={<MovieList />} />
-            <Route path="movies/:id" element={<MovieDetail />} />
-            <Route path="watchlist" element={<WatchList />} /> 
-            <Route path="login" element={<Login />} />
-            <Route path="register" element={<Register />} />
+            <Route path="pentaMovieMania" element={<MovieList />} />
+            <Route path="pentaMovieMania/movies/:id" element={<MovieDetail />} />
+            <Route path="pentaMovieMania/watchlist" element={<WatchList />} /> 
+            <Route path="pentaMovieMania/login" element={<Login />} />
+            <Route path="pentaMovieMania/register" element={<Register />} />
             {/* <Route path="*" element={<PageNotFound />} /> */}
         </Routes>
     </div>
