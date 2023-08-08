@@ -20,7 +20,7 @@ const MovieSchema = new mongoose.Schema({
 
 const MoviesSchema = new Schema({
     user: String,
-    movielist: [MovieSchema],   
+    watchList: [MovieSchema],   
     date:{
         type: Date,
         default: Date.now

@@ -2,14 +2,43 @@
 import { useTitle } from "../hooks/useTitle";
 import { WatchlistCard } from "../components/watchlistCard";
 import { useDispatch,useSelector } from "react-redux";
+import { ipAddress } from "../assets/EnvironmentalDetails";
 
 export const WatchList = () => {
   const watchList = useSelector((state) => state.watchListState.watchList);
+  console.log(JSON.stringify({watchList}))
   useTitle("Watchlist");
   const u_id = useSelector(state => state.userIDState.userID);
+  const authtoken = useSelector(state => state.loginStatusState.loginStatus);
 
-  const handleSave = () =>{
+  const handleSave = async () =>{
     console.log("uid = ",u_id);
+    try {
+      const response = await fetch(ipAddress+"/api/watchlist/addwatchlist", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": authtoken,
+        },
+        body: JSON.stringify({watchList}),
+      });
+
+      if (response.ok) {
+        // Registration successful, handle response or redirect
+        const data = await response.json()
+        // console.log(data.authtoken)
+        // dispatch(add(data.authtoken))
+        // navigate("/pentamoviemania");
+        alert("Data saved successfully");
+
+      } else {
+        // Registration failed, handle error
+        alert("Save failed");
+      }
+    } catch (error) {
+      // Handle error
+      console.error("Error:", error);
+    }
   }
   return (
     <main>
