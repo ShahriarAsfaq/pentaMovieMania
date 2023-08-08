@@ -3,6 +3,7 @@ import { useState,useEffect } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { Link, NavLink, useNavigate} from "react-router-dom";
 import { add,remove } from "../stores/slices/useLogedInSlice";
+import { ipAddress } from "../assets/EnvironmentalDetails";
 
 export const Register = () => {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ export const Register = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://192.168.1.104:3000/api/auth/createuser", {
+      const response = await fetch(ipAddress+"/api/auth/createuser", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

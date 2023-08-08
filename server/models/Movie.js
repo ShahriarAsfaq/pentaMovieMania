@@ -24,7 +24,7 @@ const MovieSchema = new Schema({
     },
     date:{
         type: Date,
-        default: Date.now
+        default: 0
     },
   });
 

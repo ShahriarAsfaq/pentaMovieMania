@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Link, NavLink, useNavigate} from "react-router-dom";
 //import { add, remove } from "../stores/guestSlice";
 import { add,remove } from "../stores/slices/useLogedInSlice";
+import { ipAddress } from "../assets/EnvironmentalDetails";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ export const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://192.168.1.104:3000/api/auth/login", {
+      const response = await fetch(ipAddress+"/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
