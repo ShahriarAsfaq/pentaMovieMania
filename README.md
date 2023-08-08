@@ -1,4 +1,13 @@
 # React + Vite
+To run this code on a personal device :
+- clone git repository main branch
+- run 'npm install'
+- for front-end run 'npm run dev'
+- for the backend server
+    - move to pentamoviemania>server folder
+    - run 'node index.js'
+
+This backend is connected to MongoDB atlas, a Mongo cloud service
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
